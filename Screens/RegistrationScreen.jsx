@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ImageBackground,
+  Image,
 } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -47,7 +48,7 @@ const RegistrationScreens = () => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={keyboardHide}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           style={styles.image}
@@ -62,10 +63,18 @@ const RegistrationScreens = () => {
                 paddingBottom: setIsShowKeyboard ? 20 : 45,
               }}
             >
+              <View style={styles.imageWrapper}>
+                <Image />
+                <Image
+                  source={require("../assets/add.png")}
+                  style={styles.addIcon}
+                />
+              </View>
               <View style={styles.form}>
                 <View>
                   <Text style={styles.title}>Регистрация</Text>
                 </View>
+
                 <View>
                   <TextInput
                     onFocus={() => {
@@ -79,6 +88,7 @@ const RegistrationScreens = () => {
                     style={styles.input}
                   />
                   <TextInput
+                    keyboardType="email-address"
                     onFocus={() => {
                       setIsShowKeyboard(true);
                     }}
@@ -105,6 +115,7 @@ const RegistrationScreens = () => {
                     style={styles.input}
                   />
                 </View>
+
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={keyboardHide}
@@ -187,5 +198,21 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     textAlign: "center",
     color: "#1B4371",
+  },
+  imageWrapper: {
+    position: "absolute",
+    left: "35%",
+    top: "-15%",
+    width: 120,
+    height: 120,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 16,
+  },
+  addIcon: {
+    position: "absolute",
+    left: "90%",
+    top: "65%",
+    width: 25,
+    height: 25,
   },
 });
