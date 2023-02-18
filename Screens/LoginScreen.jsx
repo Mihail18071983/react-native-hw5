@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ImageBackground,
+  Image,
 } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -62,9 +63,11 @@ const LoginScreen = () => {
               }}
             >
               <View style={styles.form}>
-                <View>
-                  <Text style={styles.title}>Войти</Text>
-                </View>
+                <Image
+                  style={styles.close}
+                  source={require("../assets/X.png")}
+                />
+                <Text style={styles.title}>Войти</Text>
 
                 <View>
                   <TextInput
@@ -79,21 +82,24 @@ const LoginScreen = () => {
                     }
                     style={styles.input}
                   />
-                  <TextInput
-                    onFocus={() => {
-                      setIsShowKeyboard(true);
-                    }}
-                    placeholder="Пароль"
-                    value={state.password}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({
-                        ...prevState,
-                        password: value,
-                      }))
-                    }
-                    secureTextEntry={true}
-                    style={styles.input}
-                  />
+                  <View>
+                    <TextInput
+                      onFocus={() => {
+                        setIsShowKeyboard(true);
+                      }}
+                      placeholder="Пароль"
+                      value={state.password}
+                      onChangeText={(value) =>
+                        setState((prevState) => ({
+                          ...prevState,
+                          password: value,
+                        }))
+                      }
+                      secureTextEntry={true}
+                      style={styles.input}
+                    />
+                    <Text style={styles.textPassword}>Показать</Text>
+                  </View>
                 </View>
 
                 <TouchableOpacity
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
     lineHeight: 35,
     letterSpacing: 0.01,
     color: "#212121",
-    marginBottom: 27,
+    marginBottom: 32,
   },
   input: {
     fontFamily: "Roboto-Regular",
@@ -180,5 +186,17 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     textAlign: "center",
     color: "#1B4371",
+  },
+  textPassword: {
+    position: "absolute",
+    top: "50%",
+    left: "78%",
+    color: "#1B4371",
+    fontSize: 16,
+    lineHeight: 19,
+  },
+  close: {
+    position: "absolute",
+    top: 8,
   },
 });

@@ -99,21 +99,24 @@ const RegistrationScreens = () => {
                     }
                     style={styles.input}
                   />
-                  <TextInput
-                    onFocus={() => {
-                      setIsShowKeyboard(true);
-                    }}
-                    placeholder="Пароль"
-                    value={state.password}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({
-                        ...prevState,
-                        password: value,
-                      }))
-                    }
-                    secureTextEntry={true}
-                    style={styles.input}
-                  />
+                  <View>
+                    <TextInput
+                      onFocus={() => {
+                        setIsShowKeyboard(true);
+                      }}
+                      placeholder="Пароль"
+                      value={state.password}
+                      onChangeText={(value) =>
+                        setState((prevState) => ({
+                          ...prevState,
+                          password: value,
+                        }))
+                      }
+                      secureTextEntry={true}
+                      style={styles.input}
+                    />
+                    <Text style={styles.textPassword}>Показать</Text>
+                  </View>
                 </View>
 
                 <TouchableOpacity
@@ -214,5 +217,13 @@ const styles = StyleSheet.create({
     top: "65%",
     width: 25,
     height: 25,
+  },
+  textPassword: {
+    position: "absolute",
+    top: "50%",
+    left: "78%",
+    color: "#1B4371",
+    fontSize: 16,
+    lineHeight: 19,
   },
 });
