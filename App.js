@@ -39,7 +39,7 @@ export default function App() {
     setState(initialState);
   };
 
-  if (isReady) {
+  if (!isReady) {
     return (
       <AppLoading startAsync={loadFonts} onFinish={() => setIsReady(true)} />
     );
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontFamily: "Roboto-Medium",
+    // fontFamily: "Roboto-Medium",
     fontSize: 30,
     lineHeight: 35,
     letterSpacing: 0.01,
