@@ -17,17 +17,16 @@ import * as SplashScreen from "expo-splash-screen";
 SplashScreen.preventAutoHideAsync();
 
 const initialState = {
-  login: "",
   email: "",
   password: "",
 };
 
-const RegistrationScreens = () => {
+const LoginScreen = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [fontsLoaded] = useFonts({
-    "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Medium": require("../assets/fonts/Roboto-Medium.ttf"),
+    "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -52,7 +51,7 @@ const RegistrationScreens = () => {
       <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           style={styles.image}
-          source={require("../assets/images/photo-bg2x.jpg")}
+          source={require("../../assets/images/photo-bg2x.jpg")}
         >
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -60,33 +59,17 @@ const RegistrationScreens = () => {
             <View
               style={{
                 ...styles.wrapperForm,
-                paddingBottom: setIsShowKeyboard ? 20 : 45,
+                paddingBottom: setIsShowKeyboard ? 20 : 111,
               }}
             >
-              <View style={styles.imageWrapper}>
-                <Image />
-                <Image
-                  source={require("../assets/add.png")}
-                  style={styles.addIcon}
-                />
-              </View>
               <View style={styles.form}>
-                <View>
-                  <Text style={styles.title}>Регистрация</Text>
-                </View>
+                <Image
+                  style={styles.close}
+                  source={require("../../assets/X.png")}
+                />
+                <Text style={styles.title}>Войти</Text>
 
                 <View>
-                  <TextInput
-                    onFocus={() => {
-                      setIsShowKeyboard(true);
-                    }}
-                    placeholder="Логин"
-                    value={state.login}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({ ...prevState, login: value }))
-                    }
-                    style={styles.input}
-                  />
                   <TextInput
                     keyboardType="email-address"
                     onFocus={() => {
@@ -124,10 +107,12 @@ const RegistrationScreens = () => {
                   onPress={keyboardHide}
                   style={styles.button}
                 >
-                  <Text style={styles.textButton}>Зарегистрироваться</Text>
+                  <Text style={styles.textButton}>Войти</Text>
                 </TouchableOpacity>
                 <View>
-                  <Text style={styles.textLink}>Уже есть аккаунт? Войти</Text>
+                  <Text style={styles.textLink}>
+                    Нет аккаунта? Зарегистрироваться
+                  </Text>
                 </View>
               </View>
             </View>
@@ -137,7 +122,7 @@ const RegistrationScreens = () => {
     </TouchableWithoutFeedback>
   );
 };
-export default RegistrationScreens;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -156,7 +141,7 @@ const styles = StyleSheet.create({
     lineHeight: 35,
     letterSpacing: 0.01,
     color: "#212121",
-    marginBottom: 27,
+    marginBottom: 32,
   },
   input: {
     fontFamily: "Roboto-Regular",
@@ -172,7 +157,7 @@ const styles = StyleSheet.create({
     color: "#212121",
   },
   wrapperForm: {
-    paddingTop: 92,
+    paddingTop: 32,
     backgroundColor: "#FFFFFF",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -202,22 +187,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#1B4371",
   },
-  imageWrapper: {
-    position: "absolute",
-    left: "35%",
-    top: "-15%",
-    width: 120,
-    height: 120,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
-  },
-  addIcon: {
-    position: "absolute",
-    left: "90%",
-    top: "65%",
-    width: 25,
-    height: 25,
-  },
   textPassword: {
     position: "absolute",
     top: "50%",
@@ -225,5 +194,9 @@ const styles = StyleSheet.create({
     color: "#1B4371",
     fontSize: 16,
     lineHeight: 19,
+  },
+  close: {
+    position: "absolute",
+    top: 8,
   },
 });
