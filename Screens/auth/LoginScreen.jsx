@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ImageBackground,
-  Image,
+  Platform,
 } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -24,10 +24,15 @@ const initialState = {
 const LoginScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
+  const [isFocus, setIsFocus] = useState({
+    email: false,
+    password: false,
+  });
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
   });
+  const [isSecureEntry, setIsSecureEntry] = useState(true);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -53,40 +58,51 @@ const LoginScreen = ({ navigation }) => {
           style={styles.image}
           source={require("../../assets/images/photo-bg2x.jpg")}
         >
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-          >
-            <View
-              style={{
-                ...styles.wrapperForm,
-                paddingBottom: setIsShowKeyboard ? 20 : 111,
-              }}
-            >
-              <View style={styles.form}>
-                <Image
-                  style={styles.close}
-                  source={require("../../assets/X.png")}
-                />
-                <Text style={styles.title}>Войти</Text>
-
-                <View>
+          <View style={styles.wrapperForm}>
+            <View style={styles.form}>
+              {/* <Image
+                style={styles.close}
+                source={require("../../assets/X.png")}
+              /> */}
+              <Text style={styles.title}>Войти</Text>
+              <KeyboardAvoidingView
+                behavior={Platform.OS == "ios" ? "padding" : "height"}
+              >
+                <View
+                  style={{
+                    paddingBottom: isFocus.email || isFocus.password ? 20 : 0,
+                  }}
+                >
                   <TextInput
                     keyboardType="email-address"
                     onFocus={() => {
                       setIsShowKeyboard(true);
+                      setIsFocus({ ...isFocus, email: true });
                     }}
+                    onBlur={() => {
+                      setIsFocus({ ...isFocus, email: false });
+                    }}
+                    placeholderTextColor="#BDBDBD"
                     placeholder="Адрес электронной почты"
                     value={state.email}
                     onChangeText={(value) =>
                       setState((prevState) => ({ ...prevState, email: value }))
                     }
-                    style={styles.input}
+                    style={{
+                      ...styles.input,
+                      borderColor: isFocus.email ? `#FF6C00` : `#E8E8E8`,
+                    }}
                   />
                   <View>
                     <TextInput
                       onFocus={() => {
                         setIsShowKeyboard(true);
+                        setIsFocus({ ...isFocus, password: true });
                       }}
+                      onBlur={() => {
+                        setIsFocus({ ...isFocus, password: false });
+                      }}
+                      placeholderTextColor="#BDBDBD"
                       placeholder="Пароль"
                       value={state.password}
                       onChangeText={(value) =>
@@ -95,31 +111,42 @@ const LoginScreen = ({ navigation }) => {
                           password: value,
                         }))
                       }
-                      secureTextEntry={true}
-                      style={styles.input}
+                      secureTextEntry={isSecureEntry}
+                      iconPosition="right"
+                      style={{
+                        ...styles.input,
+                        borderColor: isFocus.password ? `#FF6C00` : `#E8E8E8`,
+                      }}
                     />
-                    <Text style={styles.textPassword}>Показать</Text>
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      style={styles.textPassword}
+                      onPress={() => {
+                        setIsSecureEntry((prevState) => !prevState);
+                      }}
+                    >
+                      <Text>{isSecureEntry ? "Показать" : "Скрыть"}</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
-
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={keyboardHide}
-                  style={styles.button}
-                >
-                  <Text style={styles.textButton}>Войти</Text>
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity>
-                <Text
-                  style={styles.textLink}
-                  onPress={() => navigation.navigate("Registration")}
-                >
-                  Нет аккаунта? Зарегистрироваться
-                </Text>
+              </KeyboardAvoidingView>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={keyboardHide}
+                style={styles.button}
+              >
+                <Text style={styles.textButton}>Войти</Text>
               </TouchableOpacity>
             </View>
-          </KeyboardAvoidingView>
+            <TouchableOpacity>
+              <Text
+                style={styles.textLink}
+                onPress={() => navigation.navigate("Registration")}
+              >
+                Нет аккаунта? Зарегистрироваться
+              </Text>
+            </TouchableOpacity>
+          </View>
         </ImageBackground>
       </View>
     </TouchableWithoutFeedback>
@@ -146,6 +173,7 @@ const styles = StyleSheet.create({
     color: "#212121",
     marginBottom: 32,
   },
+
   input: {
     fontFamily: "Roboto-Regular",
     fontSize: 16,
@@ -160,6 +188,7 @@ const styles = StyleSheet.create({
     color: "#212121",
   },
   wrapperForm: {
+    paddingBottom: 111,
     paddingTop: 32,
     backgroundColor: "#FFFFFF",
     borderTopLeftRadius: 25,
