@@ -150,7 +150,7 @@ const RegistrationScreens = ({ navigation }) => {
                   </View>
                 </View>
               </KeyboardAvoidingView>
-              {<TouchableOpacity
+              {!isShowKeyboard &&<TouchableOpacity
                 activeOpacity={0.65}
                 onPress={keyboardHide}
                 style={styles.button}
@@ -158,14 +158,14 @@ const RegistrationScreens = ({ navigation }) => {
                 <Text style={styles.textButton}>Sign in</Text>
               </TouchableOpacity>}
             </View>
-            <TouchableOpacity>
+            {!isShowKeyboard &&<TouchableOpacity>
               <Text
                 style={styles.textLink}
                 onPress={() => navigation.navigate("Login")}
               >
                 Have you already had an account? Log in
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity>}
           </View>
         </ImageBackground>
       </View>

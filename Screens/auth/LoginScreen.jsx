@@ -52,7 +52,7 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           style={styles.image}
@@ -130,22 +130,22 @@ const LoginScreen = ({ navigation }) => {
                   </View>
                 </View>
               </KeyboardAvoidingView>
-              <TouchableOpacity
+              {!isShowKeyboard &&<TouchableOpacity
                 activeOpacity={0.65}
                 onPress={keyboardHide}
                 style={styles.button}
               >
                 <Text style={styles.textButton}>Log in</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>}
             </View>
-            <TouchableOpacity>
+            {!isShowKeyboard &&<TouchableOpacity>
               <Text
                 style={styles.textLink}
                 onPress={() => navigation.navigate("Registration")}
               >
                 Haven't you had an account? Fill a ragistartion form
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity>}
           </View>
         </ImageBackground>
       </View>
