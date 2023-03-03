@@ -64,7 +64,7 @@ const LoginScreen = ({ navigation }) => {
                 style={styles.close}
                 source={require("../../assets/X.png")}
               /> */}
-              <Text style={styles.title}>Войти</Text>
+              <Text style={styles.title}>Login</Text>
               <KeyboardAvoidingView
                 behavior={Platform.OS == "ios" ? "padding" : "height"}
               >
@@ -83,7 +83,7 @@ const LoginScreen = ({ navigation }) => {
                       setIsFocus({ ...isFocus, email: false });
                     }}
                     placeholderTextColor="#BDBDBD"
-                    placeholder="Адрес электронной почты"
+                    placeholder="e-mail"
                     value={state.email}
                     onChangeText={(value) =>
                       setState((prevState) => ({ ...prevState, email: value }))
@@ -103,7 +103,7 @@ const LoginScreen = ({ navigation }) => {
                         setIsFocus({ ...isFocus, password: false });
                       }}
                       placeholderTextColor="#BDBDBD"
-                      placeholder="Пароль"
+                      placeholder="password"
                       value={state.password}
                       onChangeText={(value) =>
                         setState((prevState) => ({
@@ -125,17 +125,17 @@ const LoginScreen = ({ navigation }) => {
                         setIsSecureEntry((prevState) => !prevState);
                       }}
                     >
-                      <Text>{isSecureEntry ? "Показать" : "Скрыть"}</Text>
+                      <Text>{isSecureEntry ? "Show" : "Hide"}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
               </KeyboardAvoidingView>
               <TouchableOpacity
-                activeOpacity={0.8}
+                activeOpacity={0.65}
                 onPress={keyboardHide}
                 style={styles.button}
               >
-                <Text style={styles.textButton}>Войти</Text>
+                <Text style={styles.textButton}>Log in</Text>
               </TouchableOpacity>
             </View>
             <TouchableOpacity>
@@ -143,7 +143,7 @@ const LoginScreen = ({ navigation }) => {
                 style={styles.textLink}
                 onPress={() => navigation.navigate("Registration")}
               >
-                Нет аккаунта? Зарегистрироваться
+                Haven't you had an account? Fill a ragistartion form
               </Text>
             </TouchableOpacity>
           </View>
