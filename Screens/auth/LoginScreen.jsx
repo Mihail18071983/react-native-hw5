@@ -70,7 +70,7 @@ const LoginScreen = ({ navigation }) => {
               >
                 <View
                   style={{
-                    paddingBottom: isFocus.email || isFocus.password ? 20 : 0,
+                    paddingBottom: isFocus.email || isFocus.password ? 21 : 0,
                   }}
                 >
                   <TextInput
@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "flex-end",
-    // alignItems: "center",
   },
+
   title: {
     textAlign: "center",
     fontFamily: "Roboto-Medium",

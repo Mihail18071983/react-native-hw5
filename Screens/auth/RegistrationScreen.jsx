@@ -72,7 +72,7 @@ const RegistrationScreens = ({ navigation }) => {
                   style={{
                     paddingBottom:
                       isFocus.email || isFocus.password || isFocus.login
-                        ? 80
+                        ? 32
                         : 0,
                   }}
                 >
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   textPassword: {
     position: "absolute",
     top: "50%",
-    left: "78%",
+    left: "80%",
     color: "#1B4371",
     fontSize: 16,
     lineHeight: 19,
