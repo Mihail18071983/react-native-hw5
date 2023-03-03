@@ -143,7 +143,7 @@ const LoginScreen = ({ navigation }) => {
                 style={styles.textLink}
                 onPress={() => navigation.navigate("Registration")}
               >
-                Haven't you had an account? Fill a ragistartion form
+                Haven't you had an account? Fill a registartion form
               </Text>
             </TouchableOpacity>}
           </View>

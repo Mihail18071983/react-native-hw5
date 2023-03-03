@@ -49,8 +49,46 @@ const RegistrationScreens = ({ navigation }) => {
   function keyboardHide() {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
-    setState(initialState);
+  }
+
+  function submitForm() {
+    if (loginValidation() && passwordValidation() && emailValidation()) {
+      console.log(state);
+      setState(initialState);
+    } else return;
+  }
+
+  function emailValidation() {
+    const rjx = /[0-9][aA-zZ][@]/;
+    const isValidEmail = rjx.test(state.email);
+    if (!isValidEmail) {
+      alert("Email must contain at least 1 numeric, 1 alphabatic and simbol @");
+      return false;
+    } else return true;
+  }
+
+  function loginValidation() {
+    const rjx = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
+    const isValidLogin = rjx.test(state.login);
+    if (!isValidLogin) {
+      alert("Login may contain only letters, apostrophe, dash and spaces.");
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  function passwordValidation() {
+    const rjx = /[0-9]{6}/;
+    const isValidPassword = rjx.test(state.password);
+    if (!isValidPassword) {
+      alert(
+        "password may contain only numeric. Parol length must consist minimum 6 caracters! "
+      );
+      return false;
+    } else {
+      return true;
+    }
   }
 
   return (
@@ -102,6 +140,7 @@ const RegistrationScreens = ({ navigation }) => {
                       setIsFocus({ ...isFocus, email: true });
                     }}
                     onBlur={() => {
+                      () => emailValidator();
                       setIsFocus({ ...isFocus, email: false });
                     }}
                     placeholder="e-mail"
@@ -124,6 +163,7 @@ const RegistrationScreens = ({ navigation }) => {
                         setIsFocus({ ...isFocus, password: false });
                       }}
                       placeholder="password"
+                      maxLength={10}
                       value={state.password}
                       onChangeText={(value) =>
                         setState((prevState) => ({
@@ -131,6 +171,7 @@ const RegistrationScreens = ({ navigation }) => {
                           password: value,
                         }))
                       }
+                      keyboardType="numeric"
                       secureTextEntry={isSecureEntry}
                       style={{
                         ...styles.input,
@@ -150,22 +191,26 @@ const RegistrationScreens = ({ navigation }) => {
                   </View>
                 </View>
               </KeyboardAvoidingView>
-              {!isShowKeyboard &&<TouchableOpacity
-                activeOpacity={0.65}
-                onPress={keyboardHide}
-                style={styles.button}
-              >
-                <Text style={styles.textButton}>Sign in</Text>
-              </TouchableOpacity>}
+              {!isShowKeyboard && (
+                <TouchableOpacity
+                  activeOpacity={0.65}
+                  onPress={submitForm}
+                  style={styles.button}
+                >
+                  <Text style={styles.textButton}>Sign in</Text>
+                </TouchableOpacity>
+              )}
             </View>
-            {!isShowKeyboard &&<TouchableOpacity>
-              <Text
-                style={styles.textLink}
-                onPress={() => navigation.navigate("Login")}
-              >
-                Have you already had an account? Log in
-              </Text>
-            </TouchableOpacity>}
+            {!isShowKeyboard && (
+              <TouchableOpacity>
+                <Text
+                  style={styles.textLink}
+                  onPress={() => navigation.navigate("Login")}
+                >
+                  Have you already had an account? Log in
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </ImageBackground>
       </View>
