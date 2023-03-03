@@ -47,8 +47,37 @@ const LoginScreen = ({ navigation }) => {
   function keyboardHide() {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
-    setState(initialState);
+  }
+
+  function submitForm() {
+    if (loginValidation() && passwordValidation()) {
+      console.log(state);
+      setState(initialState);
+    } else return;
+  }
+
+  function loginValidation() {
+    const rjx = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
+    const isValidLogin = rjx.test(state.login);
+    if (!isValidLogin) {
+      alert("Login may contain only letters, apostrophe, dash and spaces.");
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  function passwordValidation() {
+    const rjx = /[0-9]{6}/;
+    const isValidPassword = rjx.test(state.password);
+    if (!isValidPassword) {
+      alert(
+        "Password may contain only numeric. Password length must consist minimum 6 caracters! "
+      );
+      return false;
+    } else {
+      return true;
+    }
   }
 
   return (
@@ -60,10 +89,6 @@ const LoginScreen = ({ navigation }) => {
         >
           <View style={styles.wrapperForm}>
             <View style={styles.form}>
-              {/* <Image
-                style={styles.close}
-                source={require("../../assets/X.png")}
-              /> */}
               <Text style={styles.title}>Login</Text>
               <KeyboardAvoidingView
                 behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -132,7 +157,7 @@ const LoginScreen = ({ navigation }) => {
               </KeyboardAvoidingView>
               {!isShowKeyboard &&<TouchableOpacity
                 activeOpacity={0.65}
-                onPress={keyboardHide}
+                onPress={submitForm}
                 style={styles.button}
               >
                 <Text style={styles.textButton}>Log in</Text>
