@@ -119,7 +119,7 @@ const LoginScreen = ({ navigation }) => {
                       }}
                     />
                     <TouchableOpacity
-                      activeOpacity={0.8}
+                      activeOpacity={0.65}
                       style={styles.textPassword}
                       onPress={() => {
                         setIsSecureEntry((prevState) => !prevState);

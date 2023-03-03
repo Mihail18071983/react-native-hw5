@@ -61,13 +61,6 @@ const RegistrationScreens = ({ navigation }) => {
           source={require("../../assets/images/photo-bg2x.jpg")}
         >
           <View style={styles.wrapperForm}>
-            <View style={styles.imageWrapper}>
-              <Image />
-              <Image
-                source={require("../../assets/add.png")}
-                style={styles.addIcon}
-              />
-            </View>
             <View style={styles.form}>
               <View>
                 <Text style={styles.title}>Регистрация</Text>
@@ -94,9 +87,9 @@ const RegistrationScreens = ({ navigation }) => {
                     placeholderTextColor="#BDBDBD"
                     placeholder="Логин"
                     value={state.login}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({ ...prevState, login: value }))
-                    }
+                    onChangeText={(value) => {
+                      setState((prevState) => ({ ...prevState, login: value }));
+                    }}
                     style={{
                       ...styles.input,
                       borderColor: isFocus.login ? `#FF6C00` : `#E8E8E8`,
@@ -144,20 +137,21 @@ const RegistrationScreens = ({ navigation }) => {
                         borderColor: isFocus.password ? `#FF6C00` : `#E8E8E8`,
                       }}
                     />
-                    {isShowKeyboard && <TouchableOpacity
-                      activeOpacity={0.8}
+                    {/* &&{" "} */}
+                    <TouchableOpacity
+                      activeOpacity={0.65}
                       style={styles.textPassword}
                       onPress={() => {
                         setIsSecureEntry((prevState) => !prevState);
                       }}
                     >
                       <Text>{isSecureEntry ? "Показать" : "Скрыть"}</Text>
-                    </TouchableOpacity>}
+                    </TouchableOpacity>
                   </View>
                 </View>
               </KeyboardAvoidingView>
               <TouchableOpacity
-                activeOpacity={0.8}
+                activeOpacity={0.65}
                 onPress={keyboardHide}
                 style={styles.button}
               >
@@ -188,7 +182,6 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "flex-end",
-    // alignItems: "center",
   },
   title: {
     textAlign: "center",
