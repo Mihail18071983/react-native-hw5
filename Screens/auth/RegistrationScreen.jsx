@@ -83,7 +83,7 @@ const RegistrationScreens = ({ navigation }) => {
     const isValidPassword = rjx.test(state.password);
     if (!isValidPassword) {
       alert(
-        "password may contain only numeric. Parol length must consist minimum 6 caracters! "
+        "Password may contain only numeric. Password length must consist minimum 6 caracters! "
       );
       return false;
     } else {
@@ -98,6 +98,11 @@ const RegistrationScreens = ({ navigation }) => {
           style={styles.image}
           source={require("../../assets/images/photo-bg2x.jpg")}
         >
+          <View style={styles.imageWrapper}>
+            <Image source={require("../../assets/images/frame.png")} />
+            <Image style={styles.addIcon} source={require("../../assets/add.png")} />
+          </View>
+
           <View style={styles.wrapperForm}>
             <View style={styles.form}>
               <View>
@@ -224,10 +229,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
+    position: "relative",
     flex: 1,
     resizeMode: "cover",
     justifyContent: "flex-end",
   },
+
   title: {
     textAlign: "center",
     fontFamily: "Roboto-Medium",
@@ -283,9 +290,9 @@ const styles = StyleSheet.create({
     color: "#1B4371",
   },
   imageWrapper: {
-    position: "absolute",
     left: "35%",
-    top: "-15%",
+    top: "10%",
+    zIndex: 100,
     width: 120,
     height: 120,
     backgroundColor: "#F6F6F6",
