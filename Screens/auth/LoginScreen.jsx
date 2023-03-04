@@ -14,6 +14,8 @@ import {
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+import { loginValidation, passwordValidation } from "../../shared/validation";
+
 SplashScreen.preventAutoHideAsync();
 
 const initialState = {
@@ -50,34 +52,10 @@ const LoginScreen = ({ navigation }) => {
   }
 
   function submitForm() {
-    if (loginValidation() && passwordValidation()) {
+    if (loginValidation(state) && passwordValidation(state)) {
       console.log(state);
       setState(initialState);
     } else return;
-  }
-
-  function loginValidation() {
-    const rjx = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
-    const isValidLogin = rjx.test(state.login);
-    if (!isValidLogin) {
-      alert("Login may contain only letters, apostrophe, dash and spaces.");
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  function passwordValidation() {
-    const rjx = /[0-9]{6}/;
-    const isValidPassword = rjx.test(state.password);
-    if (!isValidPassword) {
-      alert(
-        "Password may contain only numeric. Password length must consist minimum 6 caracters! "
-      );
-      return false;
-    } else {
-      return true;
-    }
   }
 
   return (

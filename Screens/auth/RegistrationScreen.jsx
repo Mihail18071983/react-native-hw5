@@ -14,6 +14,12 @@ import {
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+import {
+  loginValidation,
+  emailValidation,
+  passwordValidation,
+} from "../../shared/validation";
+
 SplashScreen.preventAutoHideAsync();
 
 const initialState = {
@@ -52,44 +58,16 @@ const RegistrationScreens = ({ navigation }) => {
   }
 
   function submitForm() {
-    if (loginValidation() && passwordValidation() && emailValidation()) {
+    if (
+      loginValidation(state) &&
+      passwordValidation(state) &&
+      emailValidation(state)
+    ) {
       console.log(state);
       setState(initialState);
     } else return;
   }
 
-  function emailValidation() {
-    const rjx = /[0-9][aA-zZ][@]/;
-    const isValidEmail = rjx.test(state.email);
-    if (!isValidEmail) {
-      alert("Email must contain at least 1 numeric, 1 alphabatic and simbol @");
-      return false;
-    } else return true;
-  }
-
-  function loginValidation() {
-    const rjx = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
-    const isValidLogin = rjx.test(state.login);
-    if (!isValidLogin) {
-      alert("Login may contain only letters, apostrophe, dash and spaces.");
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  function passwordValidation() {
-    const rjx = /[0-9]{6}/;
-    const isValidPassword = rjx.test(state.password);
-    if (!isValidPassword) {
-      alert(
-        "Password may contain only numeric. Password length must consist minimum 6 caracters! "
-      );
-      return false;
-    } else {
-      return true;
-    }
-  }
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
@@ -100,7 +78,10 @@ const RegistrationScreens = ({ navigation }) => {
         >
           <View style={styles.imageWrapper}>
             <Image source={require("../../assets/images/frame.png")} />
-            <Image style={styles.addIcon} source={require("../../assets/add.png")} />
+            <Image
+              style={styles.addIcon}
+              source={require("../../assets/add.png")}
+            />
           </View>
 
           <View style={styles.wrapperForm}>
@@ -183,7 +164,6 @@ const RegistrationScreens = ({ navigation }) => {
                         borderColor: isFocus.password ? `#FF6C00` : `#E8E8E8`,
                       }}
                     />
-                    {/* &&{" "} */}
                     <TouchableOpacity
                       activeOpacity={0.65}
                       style={styles.textPassword}
