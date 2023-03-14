@@ -4,24 +4,21 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "build": "expo-module build",
-    "clean": "expo-module clean",
-    "test": "expo-module test",
-    "prepare": "expo-module prepare",
-    "prepublishOnly": "expo-module prepublishOnly",
-    "expo-module": "expo-module",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
-    "postinstall": "rndebugger-open"
+    "web": "expo start --web"
   },
+   
   "dependencies": {
     "@expo/webpack-config": "^0.17.2",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.4",
     "@react-navigation/stack": "^6.3.14",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "expo": "^47.0.13",
+    "expo-camera": "~13.1.0",
     "expo-font": "~11.0.1",
+    "expo-location": "~15.0.1",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "hermes": "^0.0.8",
@@ -36,9 +33,7 @@
     "react-native-svg": "13.4.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.9",
-    "yet": "^0.1.0",
-    "expo-camera": "~13.1.0",
-    "expo-location": "~15.0.1"
+    "yet": "^0.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

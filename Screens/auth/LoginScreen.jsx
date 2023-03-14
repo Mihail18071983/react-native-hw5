@@ -16,6 +16,8 @@ import * as SplashScreen from "expo-splash-screen";
 
 import { loginValidation, passwordValidation } from "../../shared/validation";
 
+import useAuth from "../../shared/hooks/useAuth";
+
 SplashScreen.preventAutoHideAsync();
 
 const initialState = {
@@ -24,6 +26,7 @@ const initialState = {
 };
 
 const LoginScreen = ({ navigation }) => {
+  const { isAuth, setIsAuth }  = useAuth()
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [isFocus, setIsFocus] = useState({
@@ -55,6 +58,8 @@ const LoginScreen = ({ navigation }) => {
     if (loginValidation(state) && passwordValidation(state)) {
       console.log(state);
       setState(initialState);
+      setIsAuth(true)
+      console.log('isAuth after submit', isAuth)
     } else return;
   }
 
