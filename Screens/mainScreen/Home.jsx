@@ -15,7 +15,7 @@ const HomeTabsScreen = () => {
   
     return (
       <MainTab.Navigator
-      initialRouteName="Create"
+      initialRouteName="Posts"
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
