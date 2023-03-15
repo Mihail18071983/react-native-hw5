@@ -1,36 +1,78 @@
 import React, { useCallback } from "react";
 
-import { Text, View } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
-import { useFonts } from "expo-font";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import * as SplashScreen from "expo-splash-screen";
 
-SplashScreen.preventAutoHideAsync();
+import PostScreen from "../../Screens/mainScreen/PostsScreen";
+import CreatePostScreen from "../../Screens/mainScreen/CreatePostsScreen";
+import ProfileScreen from "../../Screens/mainScreen/ProfileScreen";
 
-const Home = () => {
-     const [fontsLoaded] = useFonts({
-    "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
-  });
+const MainTab = createBottomTabNavigator();
 
-   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
+const HomeTabsScreen = () => {
+  
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onLayout={onLayoutRootView} >
-            <Text>Home</Text>
-        </View>
+      <MainTab.Navigator
+      initialRouteName="Create"
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          height: 83,
+          alignItems: "center",
+          justifyContent: "center",
+          paddingHorizontal: 80,
+          paddingVertical: 20,
+        },
+      }}
+    >
+      <MainTab.Screen
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <Feather name="grid" size={size} color={color} />
+          ),
+          tabBarActiveBackgroundColor: "#FF6C00",
+          tabBarActiveTintColor: "#FFFFFF",
+          title: "Posts",
+          headerRight: () => (
+            <Feather name="log-out" size={24} color="#BDBDBD" />
+          ),
+          tabBarItemStyle: { height: 40, borderRadius: 20 },
+        }}
+        name="Posts"
+        component={PostScreen}
+      />
+      <MainTab.Screen
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <Feather name="plus" size={size} color={color} />
+          ),
+          tabBarActiveBackgroundColor: "#FF6C00",
+          tabBarActiveTintColor: "#FFFFFF",
+          title: "Create Post",
+          tabBarItemStyle: { height: 40, borderRadius: 20 },
+        }}
+        name="Create"
+        component={CreatePostScreen}
+      />
+      <MainTab.Screen
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <Feather name="user" size={size} color={color} />
+          ),
+          tabBarActiveBackgroundColor: "#FF6C00",
+          tabBarActiveTintColor: "#FFFFFF",
+          headerShown: false,
+          tabBarItemStyle: { height: 40, borderRadius: 20 },
+        }}
+        name="Profile"
+        component={ProfileScreen}
+      />
+    </MainTab.Navigator>
     )
 }
 
-export default Home;
+export default HomeTabsScreen;
 
 
