@@ -29,11 +29,6 @@ export const Routing = () => {
             name="Registration"
             component={RegistrationScreens}
           />
-            <AuthStack.Screen
-            options={{ headerShown: false }}
-            name="Home"
-            component={HomeTabsScreen}
-          />
         </AuthStack.Navigator>
       </>
     );

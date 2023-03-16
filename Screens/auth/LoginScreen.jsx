@@ -12,11 +12,9 @@ import {
   Platform,
 } from "react-native";
 
-
 import { loginValidation, passwordValidation } from "../../shared/validation";
 
 import useAuth from "../../shared/hooks/useAuth";
-
 
 const initialState = {
   email: "",
@@ -24,14 +22,13 @@ const initialState = {
 };
 
 const LoginScreen = ({ navigation }) => {
-  const { isAuth, setIsAuth }  = useAuth()
+  const { isAuth, setIsAuth } = useAuth();
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [isFocus, setIsFocus] = useState({
     email: false,
     password: false,
   });
-
 
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
@@ -44,14 +41,14 @@ const LoginScreen = ({ navigation }) => {
     if (loginValidation(state) && passwordValidation(state)) {
       console.log(state);
       setState(initialState);
-      setIsAuth(true)
-      console.log('isAuth after submit', isAuth)
+      setIsAuth(true);
+      console.log("isAuth after submit", isAuth);
     } else return;
   }
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ImageBackground
           style={styles.image}
           source={require("../../assets/images/photo-bg2x.jpg")}
@@ -124,22 +121,28 @@ const LoginScreen = ({ navigation }) => {
                   </View>
                 </View>
               </KeyboardAvoidingView>
-              {!isShowKeyboard &&<TouchableOpacity
-                activeOpacity={0.65}
-                onPress={submitForm}
-                style={styles.button}
-              >
-                <Text style={styles.textButton}>Log in</Text>
-              </TouchableOpacity>}
+              {!isShowKeyboard && (
+                <TouchableOpacity
+                  activeOpacity={0.65}
+                  onPress={submitForm}
+                  style={styles.button}
+                >
+                  <Text style={styles.textButton}>Log in</Text>
+                </TouchableOpacity>
+              )}
             </View>
-            {!isShowKeyboard &&<TouchableOpacity>
-              <Text
-                style={styles.textLink}
-                onPress={() => navigation.navigate("Registration")}
-              >
-                Haven't you had an account? Fill a registartion form
-              </Text>
-            </TouchableOpacity>}
+            {!isShowKeyboard && (
+              <TouchableOpacity>
+                <Text
+                  style={styles.textLink}
+                  onPress={() => {
+                    navigation.navigate("Registration");
+                  }}
+                >
+                  Haven't you had an account? Fill a registartion form
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </ImageBackground>
       </View>

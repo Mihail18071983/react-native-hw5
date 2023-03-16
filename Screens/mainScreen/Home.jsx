@@ -1,78 +1,49 @@
-import React, { useCallback } from "react";
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ImageBackground,
+  Platform,
+} from "react-native";
 
-import { Feather } from "@expo/vector-icons";
+import DefaultScreen from "./nestedSreens/DefaultScreen";
 
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MapScreen from "./nestedSreens/MapScreen";
 
+import CommentScreen from "./nestedSreens/CommentsScreen";
 
-import PostScreen from "../../Screens/mainScreen/PostsScreen";
-import CreatePostScreen from "../../Screens/mainScreen/CreatePostsScreen";
-import ProfileScreen from "../../Screens/mainScreen/ProfileScreen";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const MainTab = createBottomTabNavigator();
+const AuthStack = createStackNavigator();
 
 const HomeTabsScreen = () => {
-  
-    return (
-      <MainTab.Navigator
-      initialRouteName="Posts"
-      screenOptions={{
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          height: 83,
-          alignItems: "center",
-          justifyContent: "center",
-          paddingHorizontal: 80,
-          paddingVertical: 20,
-        },
-      }}
-    >
-      <MainTab.Screen
-        options={{
-          tabBarIcon: ({ focused, size, color }) => (
-            <Feather name="grid" size={size} color={color} />
-          ),
-          tabBarActiveBackgroundColor: "#FF6C00",
-          tabBarActiveTintColor: "#FFFFFF",
-          title: "Posts",
-          headerRight: () => (
-            <Feather name="log-out" size={24} color="#BDBDBD" />
-          ),
-          tabBarItemStyle: { height: 40, borderRadius: 20 },
-        }}
-        name="Posts"
-        component={PostScreen}
-      />
-      <MainTab.Screen
-        options={{
-          tabBarIcon: ({ focused, size, color }) => (
-            <Feather name="plus" size={size} color={color} />
-          ),
-          tabBarActiveBackgroundColor: "#FF6C00",
-          tabBarActiveTintColor: "#FFFFFF",
-          title: "Create Post",
-          tabBarItemStyle: { height: 40, borderRadius: 20 },
-        }}
-        name="Create"
-        component={CreatePostScreen}
-      />
-      <MainTab.Screen
-        options={{
-          tabBarIcon: ({ focused, size, color }) => (
-            <Feather name="user" size={size} color={color} />
-          ),
-          tabBarActiveBackgroundColor: "#FF6C00",
-          tabBarActiveTintColor: "#FFFFFF",
-          headerShown: false,
-          tabBarItemStyle: { height: 40, borderRadius: 20 },
-        }}
-        name="Profile"
-        component={ProfileScreen}
-      />
-    </MainTab.Navigator>
-    )
-}
+  return (
+    <>
+      <AuthStack.Navigator initialRouteName="default">
+        <AuthStack.Screen
+          options={{ headerShown: false }}
+          name="default"
+          component={DefaultScreen}
+        />
+        <AuthStack.Screen
+          options={{ headerShown: false }}
+          name="Map"
+          component={MapScreen}
+        />
+        <AuthStack.Screen
+          options={{ headerShown: false }}
+          name="Comments"
+          component={CommentScreen}
+        />
+      </AuthStack.Navigator>
+    </>
+  );
+};
 
 export default HomeTabsScreen;
-
-
