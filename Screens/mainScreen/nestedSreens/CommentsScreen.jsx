@@ -1,4 +1,5 @@
 import React from "react";
+import { AntDesign } from '@expo/vector-icons';
 
 import {
   StyleSheet,
@@ -17,13 +18,13 @@ const CommentScreen = ({navigation}) => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
       <Text>CommentScreen</Text>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           navigation.navigate("default");
         }}
       >
-        <Text>goBack</Text>
-      </TouchableOpacity>
+        <AntDesign name="arrowleft" size={24} color="black" />
+      </TouchableOpacity> */}
     </View>
   );
 };

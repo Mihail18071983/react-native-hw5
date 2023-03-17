@@ -22,22 +22,22 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 const AuthStack = createStackNavigator();
 
-const HomeTabsScreen = () => {
+const HomeScreen = () => {
   return (
     <>
-      <AuthStack.Navigator initialRouteName="default">
+      <AuthStack.Navigator initialRouteName="default" >
         <AuthStack.Screen
-          options={{ headerShown: false }}
+          options={{ headerShown: false, headerTitleAlign:'center' }}
           name="default"
           component={DefaultScreen}
         />
         <AuthStack.Screen
-          options={{ headerShown: false }}
+          options={{ headerShown: true, headerTitleAlign:'center' }}
           name="Map"
           component={MapScreen}
         />
         <AuthStack.Screen
-          options={{ headerShown: false }}
+          options={{ headerShown: true, headerTitleAlign:'center' }}
           name="Comments"
           component={CommentScreen}
         />
@@ -46,4 +46,4 @@ const HomeTabsScreen = () => {
   );
 };
 
-export default HomeTabsScreen;
+export default HomeScreen;

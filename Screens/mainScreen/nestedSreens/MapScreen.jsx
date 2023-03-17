@@ -16,11 +16,11 @@ import {
 const MapScreen = ({navigation}) => {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <TouchableOpacity onPress={()=>{navigation.navigate("default")}}>
+            {/* <TouchableOpacity onPress={()=>{navigation.navigate("default")}}>
                 <Text>
                     goBack
                 </Text>
-</TouchableOpacity>
+</TouchableOpacity> */}
             <Text>MapScreen</Text>
         </View>
     )

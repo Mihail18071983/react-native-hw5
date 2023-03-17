@@ -12,7 +12,7 @@ import {
   Platform,
 } from "react-native";
 
-import { Feather } from "@expo/vector-icons";
+import { Feather, FontAwesome } from "@expo/vector-icons";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -31,22 +31,22 @@ const DefaultScreen = ({ navigation }) => {
 
   return (
     <View style={styles.screenWrapper}>
-      <View style={styles.buttonWrapper}>
+      {/* <View style={styles.buttonWrapper}>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Map");
           }}
         >
-          <Text>Map</Text>
+          <Feather name="map" size={24} color="black" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Comments");
           }}
         >
-          <Text>Comments</Text>
+          <FontAwesome name="comments" size={24} color="black" />
         </TouchableOpacity>
-      </View>
+      </View> */}
       <MainTab.Navigator
         initialRouteName="Posts"
         screenOptions={{
@@ -68,15 +68,38 @@ const DefaultScreen = ({ navigation }) => {
             tabBarActiveBackgroundColor: "#FF6C00",
             tabBarActiveTintColor: "#FFFFFF",
             title: "Posts",
+            headerTitleAlign: "center",
             headerRight: () => (
-              <Feather
-                name="log-out"
-                size={24}
-                color="#BDBDBD"
-                onPress={() => {
-                  setIsAuth(false);
-                }}
-              />
+              <View style={styles.logoutWrapper}>
+                <Feather
+                  name="log-out"
+                  size={24}
+                  color="#BDBDBD"
+                  onPress={() => {
+                    setIsAuth(false);
+                  }}
+                />
+              </View>
+            ),
+            headerLeft: () => (
+              <View style={styles.iconWrapper}>
+                <Feather
+                  name="map"
+                  size={24}
+                  color="#BDBDBD"
+                  onPress={() => {
+                    navigation.navigate("Map");
+                  }}
+                />
+                <FontAwesome
+                  name="comments"
+                  size={24}
+                  color="#BDBDBD"
+                  onPress={() => {
+                    navigation.navigate("Comments");
+                  }}
+                />
+              </View>
             ),
             tabBarItemStyle: { height: 40, borderRadius: 20 },
           }}
@@ -91,6 +114,7 @@ const DefaultScreen = ({ navigation }) => {
             tabBarActiveBackgroundColor: "#FF6C00",
             tabBarActiveTintColor: "#FFFFFF",
             title: "Create Post",
+            headerTitleAlign: "center",
             tabBarItemStyle: { height: 40, borderRadius: 20 },
           }}
           name="Create"
@@ -103,7 +127,8 @@ const DefaultScreen = ({ navigation }) => {
             ),
             tabBarActiveBackgroundColor: "#FF6C00",
             tabBarActiveTintColor: "#FFFFFF",
-            headerShown: false,
+            headerShown: true,
+            headerTitleAlign: "center",
             tabBarItemStyle: { height: 40, borderRadius: 20 },
           }}
           name="Profile"
@@ -121,16 +146,14 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
   },
-  buttonWrapper: {
-    minWidth: 300,
-    flex:1,
-    position: 'absolute',
-    top: 50,
-    zIndex: 100,
-    left:'10%',
-    marginTop: 50,
+  iconWrapper: {
+    width: 100,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
   },
+
+  logoutWrapper: {
+    right:10
+  }
 });
