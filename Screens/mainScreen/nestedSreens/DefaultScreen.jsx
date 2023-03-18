@@ -31,22 +31,6 @@ const DefaultScreen = ({ navigation }) => {
 
   return (
     <View style={styles.screenWrapper}>
-      {/* <View style={styles.buttonWrapper}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Map");
-          }}
-        >
-          <Feather name="map" size={24} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Comments");
-          }}
-        >
-          <FontAwesome name="comments" size={24} color="black" />
-        </TouchableOpacity>
-      </View> */}
       <MainTab.Navigator
         initialRouteName="Posts"
         screenOptions={{

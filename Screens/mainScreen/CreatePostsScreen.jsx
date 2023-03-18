@@ -4,18 +4,22 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Image,
 } from "react-native";
 import * as Location from "expo-location";
 import { useEffect, useState, useRef } from "react";
 import { Camera, CameraType } from "expo-camera";
 import { View, Button } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-const CreatePostScreen = () => {
+
+const CreatePostScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [startCamera, setStartCamera] = useState(null);
+  const [photo, setPhoto] = useState("");
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const cameraRef = useRef();
+  
   useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -25,6 +29,7 @@ const CreatePostScreen = () => {
       }
       const location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      console.log(location);
     })();
   }, []);
   let text = "Waiting..";
@@ -36,7 +41,13 @@ const CreatePostScreen = () => {
   const makePhoto = async () => {
     const photo = await cameraRef.current.takePictureAsync();
     console.log("photo :>> ", photo);
+    setPhoto(photo.uri);
   };
+
+  const sendPhoto = () => {
+    navigation.navigate("Posts", { photo });
+  };
+
   const __startCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
     if (status === "granted") {
@@ -48,13 +59,18 @@ const CreatePostScreen = () => {
   };
   return (
     <>
-      <Text>{text}</Text>
+      {/* <Text>{text}</Text> */}
       {startCamera ? (
         <>
-          <Camera
-            style={styles.camera}
-            ref={cameraRef}
-          >
+          <Camera style={styles.camera} ref={cameraRef}>
+            {photo && (
+              <View style={styles.takePhotoContainer}>
+                <Image
+                  source={{ uri: photo }}
+                  style={{ height: 150, width: 150, borderRadius: 10 }}
+                />
+              </View>
+            )}
             <TouchableOpacity style={styles.snapWrapper} onPress={makePhoto}>
               <Entypo name="camera" size={24} color="#BDBDBD" />
             </TouchableOpacity>
@@ -112,6 +128,14 @@ const CreatePostScreen = () => {
           </TouchableOpacity>
         </View>
       )}
+
+      { photo && (
+        <TouchableOpacity style={styles.publishButton}>
+          <Text style={styles.publishButtonText} onPress={sendPhoto}>
+            Publish
+          </Text>
+        </TouchableOpacity>
+      )}
     </>
   );
 };
@@ -125,10 +149,17 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     borderWidth: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     borderRadius: 8,
   },
-
+  takePhotoContainer: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    borderColor: "#fff",
+    borderWidth: 1,
+    borderRadius: 10,
+  },
   snapWrapper: {
     alignItems: "center",
     justifyContent: "center",
@@ -136,5 +167,22 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 50,
+  },
+
+  publishButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 16,
+    paddingBottom: 16,
+    paddingTop: 16,
+    backgroundColor: "#FF6C00",
+    borderRadius: 100,
+  },
+
+  publishButtonText: {
+    color: "#FFFFFF",
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
   },
 });

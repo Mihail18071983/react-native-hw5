@@ -14,17 +14,10 @@ import {
   Platform,
 } from "react-native";
 
-const CommentScreen = ({navigation}) => {
+const CommentScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
       <Text>CommentScreen</Text>
-      {/* <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("default");
-        }}
-      >
-        <AntDesign name="arrowleft" size={24} color="black" />
-      </TouchableOpacity> */}
     </View>
   );
 };
