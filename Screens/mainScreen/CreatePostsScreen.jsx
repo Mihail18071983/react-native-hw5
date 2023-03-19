@@ -25,10 +25,10 @@ const CreatePostScreen = ({ navigation }) => {
   const [formValues, setFormValues] = useState({ title: "", location: "" });
   const [isFormValid, setIsFormValid] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  // const [isFocus, setIsFocus] = useState({
-  //   title: false,
-  //   location: false,
-  // });
+  const [isFocus, setIsFocus] = useState({
+    title: false,
+    location: false,
+  });
 
   useEffect(() => {
     (async () => {
@@ -108,19 +108,19 @@ const CreatePostScreen = ({ navigation }) => {
               <Text style={styles.text}>Edit photo</Text>
             )}
             {photo && (
-              <View>
+              <View style={styles.photoInfoWrapper}>
                 <TextInput
                   style={styles.input}
                   placeholder="Name..."
                   value={formValues.title}
                   onFocus={() => {
                     setIsShowKeyboard(true);
-                    // setIsFocus({ ...isFocus, title: true });
+                    setIsFocus({ ...isFocus, title: true });
                   }}
                   onBlur={() => {
                     setIsShowKeyboard(false);
                     Keyboard.dismiss();
-                    // setIsFocus({ ...isFocus, title: false });
+                    setIsFocus({ ...isFocus, title: false });
                   }}
                   onChangeText={(value) => {
                     setFormValues({ ...formValues, title: value });
@@ -142,12 +142,12 @@ const CreatePostScreen = ({ navigation }) => {
                     }
                     onFocus={() => {
                       setIsShowKeyboard(true);
-                      // setIsFocus({ ...isFocus, location: true });
+                      setIsFocus({ ...isFocus, location: true });
                     }}
                     onBlur={() => {
                       setIsShowKeyboard(false);
                       Keyboard.dismiss();
-                      // setIsFocus({ ...isFocus, location: false });
+                      setIsFocus({ ...isFocus, location: false });
                     }}
                   />
                 </View>
@@ -175,21 +175,6 @@ const CreatePostScreen = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
             )}
-            {/* <View
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <TextInput
-                placeholder="Input something..."
-                style={{ borderBottomColor: "black", backgroundColor: "white" }}
-                onChangeText={(value) => {
-                  console.log(value);
-                }}
-              />
-            </View> */}
           </KeyboardAvoidingView>
         </>
       ) : (
@@ -286,6 +271,10 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: "#BDBDBD",
   },
+  photoInfoWrapper: {
+    marginHorizontal:16
+  },
+
   inputMapWrapper: {
     position: "relative",
   },

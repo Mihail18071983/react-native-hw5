@@ -22,26 +22,33 @@ const PostScreen = ({ route }) => {
         renderItem={({ item }) => (
           <View
             style={{
-              marginBottom: 10,
-              justifyContent: "center",
-              alignItems: "center",
+              marginBottom: 20,
+              marginHorizontal: 16,
             }}
           >
             <Image
               source={{ uri: item.photo }}
-              style={{ width: 350, height: 200 }}
+              style={{ width: 350, height: 200, marginTop: 10 }}
             />
-            <View>
+            <View style={styles.titleWrapper}>
               <Text>{item.formValues.title}</Text>
             </View>
-            <View style={styles.locationWrapper}>
-              <Feather
-                name="map-pin"
-                size={18}
-                color="#BDBDBD"
-                style={styles.mapIcon}
-              />
-              <Text  style={styles.locationText}>{item.formValues.location}</Text>
+            <View style={{flex:1, flexDirection:'row'}}>
+              <View style={styles.commentsCountWrapper}>
+                <Feather name="message-circle" size={24} color="black" />
+                <Text>0</Text>
+              </View>
+              <View style={styles.locationWrapper}>
+                <Feather
+                  name="map-pin"
+                  size={18}
+                  color="#BDBDBD"
+                  style={styles.mapIcon}
+                />
+                <Text style={styles.locationText}>
+                  {item.formValues.location}
+                </Text>
+              </View>
             </View>
           </View>
         )}
@@ -55,16 +62,24 @@ export default PostScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
   },
   locationWrapper: {
-    flex:1,
-    flexDirection: 'row',
-    width:300,
+    flex: 1,
+    flexDirection: "row",
+    width: 300,
   },
   locationText: {
     marginLeft: 5,
     fontSize: 16,
-    lineHeight:19
-  }
+    lineHeight: 19,
+  },
+  titleWrapper: {
+    marginTop: 8,
+    marginBottom:11,
+    width: 300,
+  },
+  commentsCountWrapper: {
+    flexDirection: "row",
+    flexGrow:2
+  },
 });
