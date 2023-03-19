@@ -113,7 +113,7 @@ const RegistrationScreens = ({ navigation }) => {
                       setIsFocus({ ...isFocus, email: true });
                     }}
                     onBlur={() => {
-                      () => emailValidator();
+                      () => emailValidation();
                       setIsFocus({ ...isFocus, email: false });
                     }}
                     placeholder="e-mail"
