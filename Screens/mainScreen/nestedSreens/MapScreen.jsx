@@ -17,16 +17,15 @@ import {
   Platform,
 } from "react-native";
 
-const MapScreen = ({ route } ) => {
-
-  const { location } = route.params
-  console.log('location in maps',location)
+const MapScreen = ({ route }) => {
+  const { location, item } = route.params;
+  console.log("location in maps", location);
+  console.log("item", item);
   const [region, setRegion] = useState(null);
 
   useEffect(() => {
     if (location) {
       setRegion(location);
-     
     }
   }, [location]);
 
@@ -49,6 +48,12 @@ const MapScreen = ({ route } ) => {
     <View style={styles.container}>
       <MapView
         style={{ flex: 1 }}
+        initialRegion={{
+          latitude: 47.788,
+          longitude: 30.6661,
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.006,
+        }}
         region={{
           latitude: location.latitude,
           longitude: location.longitude,
@@ -62,7 +67,7 @@ const MapScreen = ({ route } ) => {
             latitude: location.latitude,
             longitude: location.longitude,
           }}
-          title="travel photo"
+          title={item.formValues.title}
         />
       </MapView>
     </View>

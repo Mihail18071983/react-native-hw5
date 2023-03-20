@@ -40,6 +40,7 @@ const PostScreen = ({ route, navigation }) => {
     }
   }, [route.params]);
 
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -69,7 +70,7 @@ const PostScreen = ({ route, navigation }) => {
                 <Text>0</Text>
               </View>
               <View style={styles.locationWrapper}>
-                <TouchableOpacity onPress={() => navigation.navigate("Map", {location})}>
+                <TouchableOpacity onPress={() => navigation.navigate("Map", {location, item})}>
                   <Feather
                     name="map-pin"
                     size={18}
