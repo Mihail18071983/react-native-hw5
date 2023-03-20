@@ -65,26 +65,26 @@ const DefaultScreen = ({ navigation }) => {
                 />
               </View>
             ),
-            headerLeft: () => (
-              <View style={styles.iconWrapper}>
-                <Feather
-                  name="map"
-                  size={24}
-                  color="#BDBDBD"
-                  onPress={() => {
-                    navigation.navigate("Map");
-                  }}
-                />
-                <FontAwesome
-                  name="comments"
-                  size={24}
-                  color="#BDBDBD"
-                  onPress={() => {
-                    navigation.navigate("Comments");
-                  }}
-                />
-              </View>
-            ),
+            // headerLeft: () => (
+            //   <View style={styles.iconWrapper}>
+            //     <Feather
+            //       name="map"
+            //       size={24}
+            //       color="#BDBDBD"
+            //       onPress={() => {
+            //         navigation.navigate("Map");
+            //       }}
+            //     />
+            //     <FontAwesome
+            //       name="comments"
+            //       size={24}
+            //       color="#BDBDBD"
+            //       onPress={() => {
+            //         navigation.navigate("Comments");
+            //       }}
+            //     />
+            //   </View>
+            // ),
             tabBarItemStyle: { height: 40, borderRadius: 20 },
           }}
           name="Posts"

@@ -16,7 +16,7 @@ import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
 const CreatePostScreen = ({ navigation }) => {
-  const [location, setLocation] = useState(null);
+  // const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [startCamera, setStartCamera] = useState(null);
   const [photo, setPhoto] = useState("");
@@ -30,22 +30,21 @@ const CreatePostScreen = ({ navigation }) => {
     location: false,
   });
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      const location = await Location.getCurrentPositionAsync({});
-      const coords = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      };
-      setLocation(coords);
-      console.log(coords);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       setErrorMsg("Permission to access location was denied");
+  //       return;
+  //     }
+  //     // const _location = await Location.getCurrentPositionAsync({});
+  //     // const coords = {
+  //     //   latitude: _location.coords.latitude,
+  //     //   longitude: _location.coords.longitude,
+  //     // };
+  //     // setLocation(coords);
+  //   })();
+  // }, []);
 
   useEffect(() => {
     if (formValues.title && formValues.location) {
@@ -55,20 +54,31 @@ const CreatePostScreen = ({ navigation }) => {
     }
   }, [formValues]);
 
-  let text = "Waiting..";
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
+  // let text = "Waiting..";
+  // if (errorMsg) {
+  //   text = errorMsg;
+  // } else if (location) {
+  //   text = JSON.stringify(location);
+  // }
   const makePhoto = async () => {
     const photo = await cameraRef.current.takePictureAsync();
     setPhoto(photo.uri);
+    // const location = await Location.getCurrentPositionAsync({});
+    // const coords = {
+    //   latitude: location.coords.latitude,
+    //   longitude: location.coords.longitude,
+    // };
+    // setLocation(coords);
   };
 
   const sendPhotoInfo = () => {
     navigation.navigate("Posts", { photo, formValues });
   };
+
+  // const sendLocationInfo = () => {
+  //   console.log("location in createPost", location);
+  //   navigation.navigate("Map", { location });
+  // };
 
   const __startCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
@@ -168,6 +178,7 @@ const CreatePostScreen = ({ navigation }) => {
                   onPress={() => {
                     if (isFormValid) {
                       sendPhotoInfo();
+                      // sendLocationInfo();
                     }
                   }}
                 >
@@ -272,7 +283,7 @@ const styles = StyleSheet.create({
     color: "#BDBDBD",
   },
   photoInfoWrapper: {
-    marginHorizontal:16
+    marginHorizontal: 16,
   },
 
   inputMapWrapper: {
