@@ -1,7 +1,7 @@
 import React from "react";
 
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useState, useEffect } from "react";
 
 import { AntDesign } from "@expo/vector-icons";
@@ -35,39 +35,42 @@ const CommentScreen = ({ route }) => {
   const [comment, setComment] = useState("");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
-  const [commentsArr, setCommentsArr] = useState([]);
+  const [commentsArr, setCommentsArr] = useState("");
 
-  // async function clearAll() {
-  //   try {
-  //     await AsyncStorage.clear();
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
+  async function clearAll() {
+    try {
+      await AsyncStorage.clear();
+      setCommentsArr([])
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
-  // async function getItems() {
-  //   try {
-  //     const items = await AsyncStorage.getItem("@items");
-  //     console.log("items in getItems", items);
-  //     if (items !== null) {
-  //       return items;
-  //     } else {
-  //       return [];
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+ 
 
-  // useEffect(() => {
-  //   (async function setItems() {
-  //     try {
-  //       await AsyncStorage.setItem("@items", JSON.stringify(commentsArr));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   })();
-  // }, []);
+  useEffect(() => {
+    ( async function getItems() {
+    try {
+      const data = await AsyncStorage.getItem("@items");
+      console.log("data in getItems", data);
+      const items = data !== null ? JSON.parse(data) : [];
+      console.log("items in getItems", items);
+      setCommentsArr([...items]);
+    } catch (err) {
+      console.log(err);
+    }
+  })()
+  }, []);
+
+  async function setItems() {
+    try {
+      setCommentsArr((prevState) => [...prevState, comment]);
+      await AsyncStorage.setItem("@items", JSON.stringify(commentsArr));
+      setComment("");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -83,7 +86,7 @@ const CommentScreen = ({ route }) => {
         renderItem={({ item }) => (
           <View style={styles.commentWrapper}>
             <Text style={styles.comments}>{item.comment}</Text>
-            <Text styles={styles.dates}>{currentDate}</Text>
+            {/* <Text styles={styles.dates}>{currentDate}</Text> */}
           </View>
         )}
       />
@@ -96,13 +99,18 @@ const CommentScreen = ({ route }) => {
           value={comment}
         />
         <TouchableOpacity
-          onPress={() => {
-            setCommentsArr((prevState) => [...prevState, comment]);
-            setComment("");
-          }}
+          // onPress={() => {
+          //   setCommentsArr((prevState) => [...prevState, comment]);
+          //   setItems();
+          //   setComment("");
+          // }}
+          onPress={() => setItems()}
           style={styles.btnWrap}
         >
           <AntDesign name="arrowup" size={24} color="#ffff" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text onPress={clearAll}>Clear</Text>
         </TouchableOpacity>
       </View>
     </View>
