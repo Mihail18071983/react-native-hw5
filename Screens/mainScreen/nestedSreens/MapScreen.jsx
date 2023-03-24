@@ -21,7 +21,12 @@ const MapScreen = ({ route }) => {
   const { location, item } = route.params;
   console.log("location in maps", location);
   console.log("item", item);
-  const [region, setRegion] = useState(null);
+  const [region, setRegion] = useState({
+          latitude: 47.788,
+          longitude: 30.6661,
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.006,
+        });
 
   useEffect(() => {
     if (location) {
@@ -29,19 +34,8 @@ const MapScreen = ({ route }) => {
     }
   }, [location]);
 
-  //  console.log(region)
-
-  // const getInitialState = () => {
-  //   return {
-  //     region: {
-  //       latitude: 48.488388,
-  //       longitude: 35.001967,
-  //       latitudeDelta: 0.001,
-  //       longitudeDelta: 0.001,
-  //     },
-  //   };
-  // };
   const onChangeRegion = () => {
+    if (!region) return
     setRegion(region);
   };
   return (

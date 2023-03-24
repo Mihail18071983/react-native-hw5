@@ -40,7 +40,7 @@ const PostScreen = ({ route, navigation }) => {
     }
   }, [route.params]);
 
-
+ 
   return (
     <View style={styles.container}>
       <FlatList
@@ -63,7 +63,7 @@ const PostScreen = ({ route, navigation }) => {
             <View style={{ flex: 1, flexDirection: "row" }}>
               <View style={styles.commentsCountWrapper}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("Comments")}
+                  onPress={() => navigation.navigate("Comments", {item})}
                 >
                   <Feather name="message-circle" size={24} color="black" />
                 </TouchableOpacity>
