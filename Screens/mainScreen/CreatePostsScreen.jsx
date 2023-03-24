@@ -180,16 +180,16 @@ const CreatePostScreen = ({ navigation }) => {
                     styles.publishButton,
                     !isFormValid && styles.disabledPublishButton,
                   ]}
+                      onPress={() => {
+                      if (isFormValid) {
+                        sendPhotoInfo();
+                      }
+                    }}
                 >
                   <Text
                     style={{
                       ...styles.publishButtonText,
                       color: isFormValid ? "#FFFFFF" : "#BDBDBD",
-                    }}
-                    onPress={() => {
-                      if (isFormValid) {
-                        sendPhotoInfo();
-                      }
                     }}
                   >
                     Publish
