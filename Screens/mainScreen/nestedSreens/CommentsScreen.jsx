@@ -1,7 +1,5 @@
 import React from "react";
 
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 
 import { AntDesign } from "@expo/vector-icons";
@@ -36,38 +34,6 @@ const CommentScreen = ({ route }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   const [commentsArr, setCommentsArr] = useState([]);
-
-  // async function clearAll() {
-  //   try {
-  //     await AsyncStorage.clear();
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
-
-  // async function getItems() {
-  //   try {
-  //     const items = await AsyncStorage.getItem("@items");
-  //     console.log("items in getItems", items);
-  //     if (items !== null) {
-  //       return items;
-  //     } else {
-  //       return [];
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   (async function setItems() {
-  //     try {
-  //       await AsyncStorage.setItem("@items", JSON.stringify(commentsArr));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   })();
-  // }, []);
 
   return (
     <View style={styles.container}>
