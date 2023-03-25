@@ -40,29 +40,27 @@ const CommentScreen = ({ route }) => {
   async function clearAll() {
     try {
       await AsyncStorage.clear();
-      setCommentsArr([])
+      setCommentsArr([]);
     } catch (e) {
       console.log(e);
     }
   }
 
- 
-
   useEffect(() => {
-    ( async function getItems() {
-    try {
-      const data = await AsyncStorage.getItem("@items");
-      console.log("data in getItems", data);
-      const items = data !== null ? JSON.parse(data) : [];
-      console.log("items in getItems", items);
-      setCommentsArr([...items]);
-    } catch (err) {
-      console.log(err);
-    }
-  })()
+    (async function getItems() {
+      try {
+        const data = await AsyncStorage.getItem("@items");
+        console.log("data in getItems", data);
+        const items = data !== null ? JSON.parse(data) : [];
+        console.log("items in getItems", items);
+        setCommentsArr([...items]);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
   }, []);
 
-  async function setItems() {
+  const setItems = async () => {
     try {
       setCommentsArr((prevState) => [...prevState, comment]);
       await AsyncStorage.setItem("@items", JSON.stringify(commentsArr));
@@ -70,7 +68,7 @@ const CommentScreen = ({ route }) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -98,15 +96,7 @@ const CommentScreen = ({ route }) => {
           style={styles.input}
           value={comment}
         />
-        <TouchableOpacity
-          // onPress={() => {
-          //   setCommentsArr((prevState) => [...prevState, comment]);
-          //   setItems();
-          //   setComment("");
-          // }}
-          onPress={() => setItems()}
-          style={styles.btnWrap}
-        >
+        <TouchableOpacity onPress={setItems} style={styles.btnWrap}>
           <AntDesign name="arrowup" size={24} color="#ffff" />
         </TouchableOpacity>
         <TouchableOpacity>
