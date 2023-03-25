@@ -35,19 +35,19 @@ const CommentScreen = ({ route }) => {
   const [comment, setComment] = useState("");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
-  const [commentsArr, setCommentsArr] = useState("");
+  const [commentsArr, setCommentsArr] = useState(null);
 
-  async function clearAll() {
+  const clearAll = async () => {
     try {
       await AsyncStorage.clear();
       setCommentsArr([]);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
-    (async function getItems() {
+    const getItems = async () => {
       try {
         const data = await AsyncStorage.getItem("@items");
         console.log("data in getItems", data);
@@ -57,18 +57,22 @@ const CommentScreen = ({ route }) => {
       } catch (err) {
         console.log(err);
       }
-    })();
+    };
+    getItems();
   }, []);
 
   const setItems = async () => {
     try {
       setCommentsArr((prevState) => [...prevState, comment]);
-      await AsyncStorage.setItem("@items", JSON.stringify(commentsArr));
       setComment("");
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    AsyncStorage.setItem("@items", JSON.stringify(commentsArr));
+  }, [commentsArr]);
 
   return (
     <View style={styles.container}>
