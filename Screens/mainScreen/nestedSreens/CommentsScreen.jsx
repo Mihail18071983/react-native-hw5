@@ -1,7 +1,6 @@
 import React from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { useState, useEffect } from "react";
 
 import { AntDesign } from "@expo/vector-icons";
@@ -73,6 +72,7 @@ const CommentScreen = ({ route }) => {
   useEffect(() => {
     AsyncStorage.setItem("@items", JSON.stringify(commentsArr));
   }, [commentsArr]);
+
 
   return (
     <View style={styles.container}>
