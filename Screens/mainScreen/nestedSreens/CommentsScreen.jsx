@@ -1,5 +1,6 @@
 import React from "react";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 
 import { AntDesign } from "@expo/vector-icons";
@@ -33,7 +34,45 @@ const CommentScreen = ({ route }) => {
   const [comment, setComment] = useState("");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
-  const [commentsArr, setCommentsArr] = useState([]);
+  const [commentsArr, setCommentsArr] = useState(null);
+
+  const clearAll = async () => {
+    try {
+      await AsyncStorage.clear();
+      setCommentsArr([]);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    const getItems = async () => {
+      try {
+        const data = await AsyncStorage.getItem("@items");
+        console.log("data in getItems", data);
+        const items = data !== null ? JSON.parse(data) : [];
+        console.log("items in getItems", items);
+        setCommentsArr([...items]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getItems();
+  }, []);
+
+  const setItems = async () => {
+    try {
+      setCommentsArr((prevState) => [...prevState, comment]);
+      setComment("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    AsyncStorage.setItem("@items", JSON.stringify(commentsArr));
+  }, [commentsArr]);
+
 
   return (
     <View style={styles.container}>
@@ -49,7 +88,7 @@ const CommentScreen = ({ route }) => {
         renderItem={({ item }) => (
           <View style={styles.commentWrapper}>
             <Text style={styles.comments}>{item.comment}</Text>
-            <Text styles={styles.dates}>{currentDate}</Text>
+            {/* <Text styles={styles.dates}>{currentDate}</Text> */}
           </View>
         )}
       />
@@ -61,14 +100,11 @@ const CommentScreen = ({ route }) => {
           style={styles.input}
           value={comment}
         />
-        <TouchableOpacity
-          onPress={() => {
-            setCommentsArr((prevState) => [...prevState, comment]);
-            setComment("");
-          }}
-          style={styles.btnWrap}
-        >
+        <TouchableOpacity onPress={setItems} style={styles.btnWrap}>
           <AntDesign name="arrowup" size={24} color="#ffff" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text onPress={clearAll}>Clear</Text>
         </TouchableOpacity>
       </View>
     </View>
