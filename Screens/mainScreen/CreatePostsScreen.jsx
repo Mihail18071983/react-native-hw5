@@ -7,17 +7,14 @@ import {
   Image,
   Keyboard,
 } from "react-native";
-import * as Location from "expo-location";
 import { useEffect, useState, useRef } from "react";
 import { Camera, CameraType } from "expo-camera";
-// import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 import { View, Button } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
 import { Feather } from "@expo/vector-icons";
 
 const CreatePostScreen = ({ navigation }) => {
-  // const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [startCamera, setStartCamera] = useState(null);
   const [photo, setPhoto] = useState("");
@@ -67,7 +64,6 @@ const CreatePostScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      {/* <Text>{text}</Text> */}
       {startCamera ? (
         <>
           {!isShowKeyboard && (
@@ -271,7 +267,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: "#BDBDBD",
   },
-  
+
   photoInfoWrapper: {
     marginHorizontal: 16,
   },

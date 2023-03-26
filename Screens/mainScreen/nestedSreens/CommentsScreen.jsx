@@ -27,9 +27,6 @@ const CommentScreen = ({ route }) => {
     }
   }, [route.params]);
 
-  // const date = new Date();
-  // const currentDate = date.toLocaleString();
-
   const [photo, setPhoto] = useState(null);
   const [comment, setComment] = useState("");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -69,44 +66,50 @@ const CommentScreen = ({ route }) => {
     }
   };
 
+  const keyboardHide = () => {
+    Keyboard.dismiss();
+    setIsShowKeyboard(false)
+  }
+
   useEffect(() => {
     AsyncStorage.setItem("@items", JSON.stringify(commentsArr));
   }, [commentsArr]);
 
-
   return (
-    <View style={styles.container}>
-      <View style={styles.photoWrapper}>
-        <Image
-          source={{ uri: photo }}
-          style={{ width: "100%", height: "100%", borderRadius: 8 }}
+      <View style={styles.container}>
+        {!isShowKeyboard && <View style={styles.photoWrapper}>
+          <Image
+            source={{ uri: photo }}
+            style={{ width: "100%", height: "100%", borderRadius: 8 }}
+          />
+        </View>}
+        <FlatList
+          data={commentsArr}
+          keyExtractor={(item, indx) => indx.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.commentWrapper}>
+              <Text style={styles.comments}>{item.comment}</Text>
+            </View>
+          )}
         />
+        <View style={styles.inputWrapper}>
+          <TextInput
+            placeholderTextColor="#BDBDBD"
+            placeholder="Write a comment..."
+            onChangeText={(value) => setComment({ comment: value })}
+            style={styles.input}
+            value={comment}
+            onBlur={keyboardHide}
+            onFocus={()=>setIsShowKeyboard(true)}
+          />
+          <TouchableOpacity onPress={setItems} style={styles.btnWrap}>
+            <AntDesign name="arrowup" size={24} color="#ffff" />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text onPress={clearAll}>Clear</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <FlatList
-        data={commentsArr}
-        keyExtractor={(item, indx) => indx.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.commentWrapper}>
-            <Text style={styles.comments}>{item.comment}</Text>
-          </View>
-        )}
-      />
-      <View style={styles.inputWrapper}>
-        <TextInput
-          placeholderTextColor="#BDBDBD"
-          placeholder="Write a comment..."
-          onChangeText={(value) => setComment({ comment: value })}
-          style={styles.input}
-          value={comment}
-        />
-        <TouchableOpacity onPress={setItems} style={styles.btnWrap}>
-          <AntDesign name="arrowup" size={24} color="#ffff" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text onPress={clearAll}>Clear</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
   );
 };
 
@@ -162,5 +165,5 @@ const styles = StyleSheet.create({
     color: "#212121",
     fontSize: 13,
     lineHeight: 18,
-  }
+  },
 });
