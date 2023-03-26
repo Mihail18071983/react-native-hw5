@@ -31,21 +31,6 @@ const CreatePostScreen = ({ navigation }) => {
     location: false,
   });
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== "granted") {
-  //       setErrorMsg("Permission to access location was denied");
-  //       return;
-  //     }
-  //     // const _location = await Location.getCurrentPositionAsync({});
-  //     // const coords = {
-  //     //   latitude: _location.coords.latitude,
-  //     //   longitude: _location.coords.longitude,
-  //     // };
-  //     // setLocation(coords);
-  //   })();
-  // }, []);
 
   useEffect(() => {
     if (formValues.title && formValues.location) {
@@ -55,26 +40,11 @@ const CreatePostScreen = ({ navigation }) => {
     }
   }, [formValues]);
 
-  // let text = "Waiting..";
-  // if (errorMsg) {
-  //   text = errorMsg;
-  // } else if (location) {
-  //   text = JSON.stringify(location);
-  // }
   const makePhoto = async () => {
     const photo = await cameraRef.current.takePictureAsync();
     setPhoto(photo.uri);
-    // const location = await Location.getCurrentPositionAsync({});
-    // const coords = {
-    //   latitude: location.coords.latitude,
-    //   longitude: location.coords.longitude,
-    // };
-    // setLocation(coords);
   };
 
-  // const deletePhoto = () => {
-  //   CameraRoll.deletePhotos([photo.uri]);
-  // }
   
   const cleanPhoto = () => {
     setPhoto('');
@@ -85,10 +55,6 @@ const CreatePostScreen = ({ navigation }) => {
     navigation.navigate("Posts", { photo, formValues });
   };
 
-  // const sendLocationInfo = () => {
-  //   console.log("location in createPost", location);
-  //   navigation.navigate("Map", { location });
-  // };
 
   const __startCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
@@ -255,16 +221,17 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     borderRadius: 8,
   },
+
   takePhotoContainer: {
     position: "absolute",
     top: 10,
     left: 10,
     borderColor: "#fff",
     borderWidth: 1,
-    // borderRadius: 10,
     width: 100,
     height:100
   },
+
   snapWrapper: {
     alignItems: "center",
     justifyContent: "center",
@@ -296,6 +263,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
   },
+
   text: {
     marginLeft: 16,
     marginTop: 8,
@@ -303,6 +271,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: "#BDBDBD",
   },
+  
   photoInfoWrapper: {
     marginHorizontal: 16,
   },

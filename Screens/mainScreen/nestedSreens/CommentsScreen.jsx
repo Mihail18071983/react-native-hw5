@@ -27,8 +27,8 @@ const CommentScreen = ({ route }) => {
     }
   }, [route.params]);
 
-  const date = new Date();
-  const currentDate = date.toLocaleString();
+  // const date = new Date();
+  // const currentDate = date.toLocaleString();
 
   const [photo, setPhoto] = useState(null);
   const [comment, setComment] = useState("");
@@ -88,7 +88,6 @@ const CommentScreen = ({ route }) => {
         renderItem={({ item }) => (
           <View style={styles.commentWrapper}>
             <Text style={styles.comments}>{item.comment}</Text>
-            {/* <Text styles={styles.dates}>{currentDate}</Text> */}
           </View>
         )}
       />
@@ -163,9 +162,5 @@ const styles = StyleSheet.create({
     color: "#212121",
     fontSize: 13,
     lineHeight: 18,
-  },
-  dates: {
-    fontSize: 8,
-    color: "rgba(189, 189, 189, 1)",
-  },
+  }
 });
